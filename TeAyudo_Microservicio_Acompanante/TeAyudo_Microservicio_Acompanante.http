@@ -1,0 +1,6 @@
+@TeAyudo_Microservicio_Acompanante_HostAddress = http://localhost:5005
+
+GET {{TeAyudo_Microservicio_Acompanante_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
