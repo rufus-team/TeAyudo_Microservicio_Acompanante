@@ -1,3 +1,9 @@
+using Application.Interfaces;
+using Application.Services;
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using TeAyudo_Microservicio_Acompanante.Controllers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,27 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+
+builder.Services.AddDbContext<AcompananteContext>(options =>
+{
+    options.UseSqlServer("Server=localhost;Database=AcompananteDB;Trusted_Connection=True;TrustServerCertificate=True;Persist Security Info=true");
+});
+
+
+
+
+
+//builder.Services.AddTransient<IAcompananteService, AcompananteService>();
+//builder.Services.AddTransient<IHorariosService, HorariosService>();
+
+
+
+
+
+
+builder.Services.AddCors(x => x.AddDefaultPolicy(c => c.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()));
 
 var app = builder.Build();
 
