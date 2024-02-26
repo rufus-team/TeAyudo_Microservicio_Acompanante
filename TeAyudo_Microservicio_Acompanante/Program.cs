@@ -1,6 +1,8 @@
 using Application.Interfaces;
 using Application.Services;
+using Infrastructure.Commands;
 using Infrastructure.Persistence;
+using Infrastructure.Querys;
 using Microsoft.EntityFrameworkCore;
 using TeAyudo_Microservicio_Acompanante.Controllers;
 
@@ -21,12 +23,11 @@ builder.Services.AddDbContext<AcompananteContext>(options =>
 });
 
 
+builder.Services.AddTransient<IAcompananteService, AcompananteService>();
+builder.Services.AddTransient<IHorariosService, HorariosService>();
 
-
-
-//builder.Services.AddTransient<IAcompananteService, AcompananteService>();
-//builder.Services.AddTransient<IHorariosService, HorariosService>();
-
+builder.Services.AddTransient<IAcompananteQuery, AcompananteQuery>();
+builder.Services.AddTransient<IAcompananteCommand, AcompananteCommand>();
 
 
 
