@@ -1,8 +1,7 @@
 ﻿namespace Application.Model.DTOs
 {
-    public class HorariosDTO
+    public class HorariosDtoFiltro
     {
-        public int AcompananteID { get; set; }
         public string Lunes { get; set; }
         public string Martes { get; set; }
         public string Miercoles { get; set; }

@@ -1,13 +1,10 @@
-﻿using Application.Interfaces;
+﻿using Application.Interfaces.Commands;
+using Application.Interfaces.Querys;
+using Application.Interfaces.Service;
 using Application.Mappers;
 using Application.Model.DTOs;
 using Application.Model.Responses;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -16,11 +13,12 @@ namespace Application.Services
         private readonly IAcompananteCommand AcompananteCommand;
         private readonly IAcompananteQuery AcompananteQuery;
 
-        public AcompananteService(IAcompananteCommand AcompananteCommand, IAcompananteQuery AcompananteQuery) 
+        public AcompananteService(IAcompananteCommand AcompananteCommand, IAcompananteQuery AcompananteQuery)
         {
             this.AcompananteCommand = AcompananteCommand;
             this.AcompananteQuery = AcompananteQuery;
         }
+
 
         public async Task<List<AcompananteResponse>> GetAllAcompanante()
         {
@@ -31,9 +29,9 @@ namespace Application.Services
         }
 
 
-        public async Task<AcompananteResponse?> GetAcompananteByUsuarioId(int UsuarioId)
+        public async Task<AcompananteResponse?> GetAcompananteByUsuarioID(int UsuarioID)
         {
-            Acompanante? Acompanante = await AcompananteQuery.GetAcompananteByUsuarioID(UsuarioId);
+            Acompanante? Acompanante = await AcompananteQuery.GetAcompananteByUsuarioID(UsuarioID);
             if (Acompanante == null)
             {
                 return null;
@@ -43,35 +41,37 @@ namespace Application.Services
             return AcompananteResponse;
         }
 
-        
-        
-        
-        
-        public async Task<AcompananteResponse?> GetAcompananteById(int AcompananteId)
+
+        public async Task<AcompananteResponse?> GetAcompananteByID(int AcompananteID)
         {
-            Acompanante? Acompanante = await AcompananteQuery.GetAcompananteByID(AcompananteId);
-            if (Acompanante == null) 
-            {  
-                return null; 
+            Acompanante? Acompanante = await AcompananteQuery.GetAcompananteByID(AcompananteID);
+            if (Acompanante == null)
+            {
+                return null;
             }
             AcompananteMapper Mapper = new AcompananteMapper();
             AcompananteResponse AcompananteResponse = Mapper.AcompananteToResponse(Acompanante);
             return AcompananteResponse;
         }
 
-        public async Task<AcompananteResponse> CreateAcompanante(int UsuarioId)
+
+        public async Task<AcompananteResponse> CreateAcompanante(AcompananteDTO AcompananteDTO)
         {
             AcompananteMapper Mapper = new AcompananteMapper();
-            Acompanante Acompanante = new Acompanante() 
-            { 
-                UsuarioID = UsuarioId 
-            };
+            Acompanante Acompanante = Mapper.DtoToAcompanante(AcompananteDTO);
             Acompanante = await AcompananteCommand.CreatedAcompanante(Acompanante);
             AcompananteResponse AcompananteResponse = Mapper.AcompananteToResponse(Acompanante);
             return AcompananteResponse;
         }
-    
-    
-    
+
+        public async Task<List<TagResponse>> AddCaracteristicas(int AcompananteID, List<TagDTO> ListTagDTO)
+        {
+            TagMapper Mapper = new TagMapper();
+            List<Tag> ListTag = Mapper.ListDtoToList(ListTagDTO);
+            ListTag = await AcompananteCommand.AddCarectiscas(AcompananteID, ListTag);
+            List<TagResponse> ListTagResponse = Mapper.ListTagToListResponse(ListTag);
+            return ListTagResponse;
+
+        }
     }
 }

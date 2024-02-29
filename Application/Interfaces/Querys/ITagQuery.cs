@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interfaces
+namespace Application.Interfaces.Querys
 {
-    public interface IHorariosCommand
+    public interface ITagQuery
     {
-        Task<Horarios> CreateHorarios(Horarios Horarios);
+        Task<List<Tag>> GetAllTag();
     }
 }

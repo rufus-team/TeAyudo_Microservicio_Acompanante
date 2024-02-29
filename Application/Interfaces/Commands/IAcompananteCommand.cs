@@ -1,14 +1,10 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Interfaces
+namespace Application.Interfaces.Commands
 {
     public interface IAcompananteCommand
     {
         Task<Acompanante> CreatedAcompanante(Acompanante Acompanante);
+        Task<List<Tag>> AddCarectiscas(int AcompananteID, List<Tag> ListTag);
     }
 }

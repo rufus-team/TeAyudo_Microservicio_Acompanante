@@ -1,15 +1,14 @@
 ﻿using Application.Model.Responses;
-using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interfaces
+namespace Application.Interfaces.Service
 {
-    public interface IHorariosQuery
+    public interface ITagService
     {
-        Task<Horarios?> GetHorariosByAcompananteId(int AcompananteID);
+        Task<List<TagResponse>> GetAllTag();
     }
 }

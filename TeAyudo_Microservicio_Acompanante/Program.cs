@@ -1,10 +1,11 @@
-using Application.Interfaces;
+using Application.Interfaces.Commands;
+using Application.Interfaces.Querys;
+using Application.Interfaces.Service;
 using Application.Services;
 using Infrastructure.Commands;
 using Infrastructure.Persistence;
 using Infrastructure.Querys;
 using Microsoft.EntityFrameworkCore;
-using TeAyudo_Microservicio_Acompanante.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,9 @@ builder.Services.AddTransient<IAcompananteCommand, AcompananteCommand>();
 builder.Services.AddTransient<IHorariosCommand, HorariosCommand>();
 builder.Services.AddTransient<IHorariosQuery, HorariosQuery>();
 
+builder.Services.AddTransient<ITagService, TagService>();
+
+builder.Services.AddTransient<ITagQuery, TagQuery>();
 
 
 

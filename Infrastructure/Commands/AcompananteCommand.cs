@@ -1,11 +1,6 @@
-﻿using Application.Interfaces;
+﻿using Application.Interfaces.Commands;
 using Domain.Entities;
 using Infrastructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Commands
 {
@@ -16,6 +11,18 @@ namespace Infrastructure.Commands
         public AcompananteCommand(AcompananteContext AcompananteContext)
         {
             this.AcompananteContext = AcompananteContext;
+        }
+
+        public async Task<List<Tag>> AddCarectiscas(int AcompananteID, List<Tag> ListTag)
+        {
+            Acompanante Acompanante = await AcompananteContext.Acompanante.FindAsync(AcompananteID);
+            foreach (Tag Tag in ListTag)
+            {
+                Acompanante.Tags.Add(Tag);
+            }
+            await AcompananteContext.SaveChangesAsync();
+            return Acompanante.Tags;
+            
         }
 
         public async Task<Acompanante> CreatedAcompanante(Acompanante Acompanante)

@@ -1,9 +1,7 @@
-﻿using Application.Interfaces;
+﻿using Application.Interfaces.Service;
 using Application.Model.DTOs;
 using Application.Model.Responses;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace TeAyudo_Microservicio_Acompanante.Controllers
 {
@@ -12,16 +10,14 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
     public class AcompananteController : ControllerBase
     {
         private readonly IAcompananteService AcompananteService;
-        private readonly IHorariosService HorariosService;
 
-        public AcompananteController(IAcompananteService AcompananteService, IHorariosService HorariosService)
+        public AcompananteController(IAcompananteService AcompananteService)
         {
             this.AcompananteService = AcompananteService;
-            this.HorariosService = HorariosService;
         }
 
 
-        [HttpGet]
+        [HttpGet] // ---------------------------------------  LISTOOOOOOOOOO
         public async Task<IActionResult> GetAllAcompanante()
         {
             List<AcompananteResponse> ListaResponse = await AcompananteService.GetAllAcompanante();
@@ -30,28 +26,10 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
 
 
 
-        [HttpGet("UserAcompanante/{UsuarioId}")]
-        public async Task<IActionResult> GetAcompananteByUsuarioId(int UsuarioId)
+        [HttpGet("UserAcompanante/{UsuarioID}")] // --------------------------------------------LISTO
+        public async Task<IActionResult> GetAcompananteByUsuarioID(int UsuarioID)
         {
-            AcompananteResponse? AcompananteResponse = await AcompananteService.GetAcompananteByUsuarioId(UsuarioId);
-            if (AcompananteResponse == null) 
-            {
-                var ObjetoAnonimo = new
-                {
-                    Mensaje = "No se ha encontrado el usuario correspondiente."
-                };
-                return NotFound(ObjetoAnonimo);
-            }
-            return Ok(AcompananteResponse);
-        }
-
-
-
-
-        [HttpGet("Acompanante/{AcompananteId}")]
-        public async Task<IActionResult> GetAcompananteById(int AcompananteId)
-        {
-            AcompananteResponse? AcompananteResponse = await AcompananteService.GetAcompananteById(AcompananteId);
+            AcompananteResponse? AcompananteResponse = await AcompananteService.GetAcompananteByUsuarioID(UsuarioID);
             if (AcompananteResponse == null)
             {
                 var ObjetoAnonimo = new
@@ -66,36 +44,33 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
 
 
 
-        [HttpGet("{AcompananteId}")]
-        public async Task<IActionResult> GetHorariosByAcompananteId(int AcompananteId)
+        [HttpGet("Acompanante/{AcompananteID}")] // -----------------------------------------LISTO
+        public async Task<IActionResult> GetAcompananteByID(int AcompananteID)
         {
-            HorariosResponse? HorariosResponse = await  HorariosService.GetHorariosByAcompananteId(AcompananteId);
-            if (HorariosResponse == null) 
+            AcompananteResponse? AcompananteResponse = await AcompananteService.GetAcompananteByID(AcompananteID);
+            if (AcompananteResponse == null)
             {
                 var ObjetoAnonimo = new
                 {
-                    Mensaje = "No se ha encontrado los horarios del usuario correspondiente."
+                    Mensaje = "No se ha encontrado el usuario correspondiente."
                 };
                 return NotFound(ObjetoAnonimo);
             }
-            return Ok(HorariosResponse);
+            return Ok(AcompananteResponse);
         }
 
 
 
 
-
-        [HttpPost("{UsuarioId}")]
-        public async Task<IActionResult> CreateAcompanante(int UsuarioId, HorariosDTO HorariosDTO)
+        [HttpPost] // -----------------------------------------LISTO
+        public async Task<IActionResult> CreateAcompanante(AcompananteDTO AcompananteDTO)
         {
             try
             {
-                AcompananteResponse AcompananteResponse = await AcompananteService.CreateAcompanante(UsuarioId);
-                HorariosResponse HorariosResponse = await HorariosService.CreateHorario(AcompananteResponse.AcompananteID, HorariosDTO);
-                object[] arrayDeObjetos = new object[] { AcompananteResponse, HorariosResponse };
-                return Ok(arrayDeObjetos);
+                AcompananteResponse AcompananteResponse = await AcompananteService.CreateAcompanante(AcompananteDTO);
+                return Ok(AcompananteResponse);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -103,11 +78,12 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
 
 
 
-
-
-
-
-
+        [HttpPost("{AcompananteID}")]
+        public async Task<IActionResult> AddTagsAcompanante(int AcompananteID, List<TagDTO> ListTag)
+        {
+            List<TagResponse> ListTagResponse = await AcompananteService.AddCaracteristicas(AcompananteID, ListTag);
+            return Ok(ListTagResponse);
+        }
 
 
 

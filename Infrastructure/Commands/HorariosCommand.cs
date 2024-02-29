@@ -1,11 +1,6 @@
-﻿using Application.Interfaces;
+﻿using Application.Interfaces.Commands;
 using Domain.Entities;
 using Infrastructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Commands
 {
@@ -18,7 +13,7 @@ namespace Infrastructure.Commands
             this.AcompananteContext = AcompananteContext;
         }
 
-        public async Task<Horarios> CreateHorarios(Horarios Horarios)
+        public async Task<Horarios> AddHorarios(Horarios Horarios)
         {
             await AcompananteContext.AddAsync(Horarios);
             await AcompananteContext.SaveChangesAsync();
