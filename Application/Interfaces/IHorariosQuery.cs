@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface IAcompananteQuery
+    public interface IHorariosQuery
     {
-        Task<List<Acompanante>> GetAllAcompanante();
-        Task<Acompanante?> GetAcompananteByUsuarioID(int UsuarioID);
-        Task<Acompanante?> GetAcompananteByID(int AcompananteID);
+        Task<Horarios?> GetHorariosByAcompananteId(int AcompananteID);
     }
 }

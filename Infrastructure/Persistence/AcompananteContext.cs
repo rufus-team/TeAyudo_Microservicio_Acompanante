@@ -27,17 +27,20 @@ namespace Infrastructure.Persistence
             //Defino las PK
             modelBuilder.Entity<Acompanante>().HasKey(s => s.AcompananteID);
             modelBuilder.Entity<Horarios>().HasKey(s => s.AcompananteID);
-
-            //Defino las FK
-            modelBuilder.Entity<Acompanante>()
-                .HasOne<Usuario>(s => s.Usuario)
-                .WithOne(m => m.Acompanante)
-                .HasForeignKey<Acompanante>(d => d.UsuarioID);
-
+    
             modelBuilder.Entity<Horarios>()
                 .HasOne<Acompanante>(s => s.Acompanante)
                 .WithOne(m => m.Horarios)
                 .HasForeignKey<Horarios>(d => d.AcompananteID);
+
+            //Defino que la pk de horarios no es autoincremental
+            modelBuilder.Entity<Horarios>()
+                .Property(s => s.AcompananteID)
+                .ValueGeneratedNever();
+
+            //Defino los nombres de las tablas 
+            modelBuilder.Entity<Acompanante>().ToTable("Acompañante");
+            modelBuilder.Entity<Horarios>().ToTable("Horarios");
         }
 
 

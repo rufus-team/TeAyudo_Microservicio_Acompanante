@@ -29,6 +29,8 @@ builder.Services.AddTransient<IHorariosService, HorariosService>();
 builder.Services.AddTransient<IAcompananteQuery, AcompananteQuery>();
 builder.Services.AddTransient<IAcompananteCommand, AcompananteCommand>();
 
+builder.Services.AddTransient<IHorariosCommand, HorariosCommand>();
+builder.Services.AddTransient<IHorariosQuery, HorariosQuery>();
 
 
 

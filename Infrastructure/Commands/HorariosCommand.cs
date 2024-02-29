@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Commands
 {
-    public class AcompananteCommand : IAcompananteCommand
+    public class HorariosCommand : IHorariosCommand
     {
         private readonly AcompananteContext AcompananteContext;
 
-        public AcompananteCommand(AcompananteContext AcompananteContext)
+        public HorariosCommand(AcompananteContext AcompananteContext)
         {
             this.AcompananteContext = AcompananteContext;
         }
 
-        public async Task<Acompanante> CreatedAcompanante(Acompanante Acompanante)
+        public async Task<Horarios> CreateHorarios(Horarios Horarios)
         {
-            await AcompananteContext.AddAsync(Acompanante);
+            await AcompananteContext.AddAsync(Horarios);
             await AcompananteContext.SaveChangesAsync();
-            return Acompanante;
+            return Horarios;
         }
     }
 }

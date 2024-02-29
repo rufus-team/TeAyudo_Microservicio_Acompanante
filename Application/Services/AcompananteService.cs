@@ -1,4 +1,6 @@
 ﻿using Application.Interfaces;
+using Application.Mappers;
+using Application.Model.DTOs;
 using Application.Model.Responses;
 using Domain.Entities;
 using System;
@@ -22,35 +24,54 @@ namespace Application.Services
 
         public async Task<List<AcompananteResponse>> GetAllAcompanante()
         {
-            List<Acompanante> ListaResponse = await AcompananteQuery.GetAllAcompanante();
-
+            List<Acompanante> Lista = await AcompananteQuery.GetAllAcompanante();
+            AcompananteMapper Mapper = new AcompananteMapper();
+            List<AcompananteResponse> ListaResponse = Mapper.ListaAcompananteToListaResponse(Lista);
+            return ListaResponse;
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public Task<int> CreateAcompanante(int UsuarioID)
+        public async Task<AcompananteResponse?> GetAcompananteByUsuarioId(int UsuarioId)
         {
-            throw new NotImplementedException();
+            Acompanante? Acompanante = await AcompananteQuery.GetAcompananteByUsuarioID(UsuarioId);
+            if (Acompanante == null)
+            {
+                return null;
+            }
+            AcompananteMapper Mapper = new AcompananteMapper();
+            AcompananteResponse AcompananteResponse = Mapper.AcompananteToResponse(Acompanante);
+            return AcompananteResponse;
         }
 
-        public Task<AcompananteResponse?> GetAcompananteByUsuarioId(int Id)
+        
+        
+        
+        
+        public async Task<AcompananteResponse?> GetAcompananteById(int AcompananteId)
         {
-            throw new NotImplementedException();
+            Acompanante? Acompanante = await AcompananteQuery.GetAcompananteByID(AcompananteId);
+            if (Acompanante == null) 
+            {  
+                return null; 
+            }
+            AcompananteMapper Mapper = new AcompananteMapper();
+            AcompananteResponse AcompananteResponse = Mapper.AcompananteToResponse(Acompanante);
+            return AcompananteResponse;
         }
 
+        public async Task<AcompananteResponse> CreateAcompanante(int UsuarioId)
+        {
+            AcompananteMapper Mapper = new AcompananteMapper();
+            Acompanante Acompanante = new Acompanante() 
+            { 
+                UsuarioID = UsuarioId 
+            };
+            Acompanante = await AcompananteCommand.CreatedAcompanante(Acompanante);
+            AcompananteResponse AcompananteResponse = Mapper.AcompananteToResponse(Acompanante);
+            return AcompananteResponse;
+        }
+    
+    
+    
     }
 }

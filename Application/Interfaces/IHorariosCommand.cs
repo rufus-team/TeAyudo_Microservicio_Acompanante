@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface IAcompananteCommand
+    public interface IHorariosCommand
     {
-        Task<Acompanante> CreatedAcompanante(Acompanante Acompanante);
+        Task<Horarios> CreateHorarios(Horarios Horarios);
     }
 }

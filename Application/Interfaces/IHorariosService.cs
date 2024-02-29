@@ -10,7 +10,7 @@ namespace Application.Interfaces
 {
     public interface IHorariosService
     {
-        Task<string> CreateHorario(int AcompananteID, HorariosDTO HorariosDTO);
+        Task<HorariosResponse> CreateHorario(int AcompananteID, HorariosDTO HorariosDTO);
         Task<HorariosResponse?> GetHorariosByAcompananteId(int AcompananteID);
     }
 }
