@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AcompananteContext))]
-    [Migration("20240229115137_v1")]
-    partial class v1
+    [Migration("20240301184046_DBTerminada")]
+    partial class DBTerminada
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,26 +64,26 @@ namespace Infrastructure.Migrations
                     b.Property<int>("AcompananteID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Domingo")
-                        .HasColumnType("int");
+                    b.Property<short>("Domingo")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Jueves")
-                        .HasColumnType("int");
+                    b.Property<short>("Jueves")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Lunes")
-                        .HasColumnType("int");
+                    b.Property<short>("Lunes")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Martes")
-                        .HasColumnType("int");
+                    b.Property<short>("Martes")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Miercoles")
-                        .HasColumnType("int");
+                    b.Property<short>("Miercoles")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Sabado")
-                        .HasColumnType("int");
+                    b.Property<short>("Sabado")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Viernes")
-                        .HasColumnType("int");
+                    b.Property<short>("Viernes")
+                        .HasColumnType("smallint");
 
                     b.HasKey("AcompananteID");
 

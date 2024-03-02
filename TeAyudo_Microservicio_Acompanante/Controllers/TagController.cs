@@ -1,7 +1,5 @@
 ﻿using Application.Interfaces.Service;
 using Application.Model.Responses;
-using Application.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TeAyudo_Microservicio_Acompanante.Controllers
@@ -23,12 +21,5 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
             List<TagResponse> ListTagResponse = await TagService.GetAllTag();
             return Ok(ListTagResponse);
         }
-
-
-
-
-
-
-
     }
 }

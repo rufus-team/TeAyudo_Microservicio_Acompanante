@@ -8,7 +8,8 @@ namespace Application.Interfaces.Service
         Task<List<AcompananteResponse>> GetAllAcompanante();
         Task<AcompananteResponse?> GetAcompananteByUsuarioID(int UsuarioID);
         Task<AcompananteResponse?> GetAcompananteByID(int AcompananteID);
+        Task<List<TagResponse>> GetTagByAcompananteID(int AcompananteID);
         Task<AcompananteResponse> CreateAcompanante(AcompananteDTO AcompananteDTO);
-        Task<List<TagResponse>> AddCaracteristicas (int AcompananteID, List<TagDTO> ListTagDTO);
+        Task<List<TagResponse>> AddCaracteristicas(int AcompananteID, List<TagDTO> ListTagDTO);
     }
 }

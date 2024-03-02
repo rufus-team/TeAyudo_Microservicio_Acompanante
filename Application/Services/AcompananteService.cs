@@ -12,11 +12,13 @@ namespace Application.Services
     {
         private readonly IAcompananteCommand AcompananteCommand;
         private readonly IAcompananteQuery AcompananteQuery;
+        private readonly ITagQuery TagQuery;
 
-        public AcompananteService(IAcompananteCommand AcompananteCommand, IAcompananteQuery AcompananteQuery)
+        public AcompananteService(IAcompananteCommand AcompananteCommand, IAcompananteQuery AcompananteQuery, ITagQuery TagQuery)
         {
             this.AcompananteCommand = AcompananteCommand;
             this.AcompananteQuery = AcompananteQuery;
+            this.TagQuery = TagQuery;
         }
 
 
@@ -55,6 +57,20 @@ namespace Application.Services
         }
 
 
+        public async Task<List<TagResponse>> GetTagByAcompananteID(int AcompananteID)
+        {
+            TagMapper Mapper = new TagMapper();
+            Acompanante? Acompanante = await AcompananteQuery.GetAcompananteByID(AcompananteID);
+            if (Acompanante == null)
+            {
+                throw new Exception("No existe el acompañante buscado");
+            }
+            List<TagResponse> ListTagResponse = Mapper.ListTagToListResponse(Acompanante.Tags);
+            return ListTagResponse;
+        }
+
+
+
         public async Task<AcompananteResponse> CreateAcompanante(AcompananteDTO AcompananteDTO)
         {
             AcompananteMapper Mapper = new AcompananteMapper();
@@ -64,14 +80,26 @@ namespace Application.Services
             return AcompananteResponse;
         }
 
+
         public async Task<List<TagResponse>> AddCaracteristicas(int AcompananteID, List<TagDTO> ListTagDTO)
         {
+            Tag? Tag;
+            List<Tag> ListaTag = new List<Tag>();
+            foreach (TagDTO TagDTO in ListTagDTO)
+            {
+                Tag = await TagQuery.GetTagById(TagDTO.TagID);
+                if (Tag != null)
+                {
+                    ListaTag.Add(Tag);
+                }
+            }
+            ListaTag = await AcompananteCommand.AddCarectiscas(AcompananteID, ListaTag);
             TagMapper Mapper = new TagMapper();
-            List<Tag> ListTag = Mapper.ListDtoToList(ListTagDTO);
-            ListTag = await AcompananteCommand.AddCarectiscas(AcompananteID, ListTag);
-            List<TagResponse> ListTagResponse = Mapper.ListTagToListResponse(ListTag);
+            List<TagResponse> ListTagResponse = Mapper.ListTagToListResponse(ListaTag);
             return ListTagResponse;
-
         }
+
+
+
     }
 }

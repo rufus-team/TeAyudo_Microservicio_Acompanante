@@ -3,12 +3,6 @@ using Application.Interfaces.Service;
 using Application.Mappers;
 using Application.Model.Responses;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -16,7 +10,7 @@ namespace Application.Services
     {
         private readonly ITagQuery TagQuery;
 
-        public TagService(ITagQuery TagQuery) 
+        public TagService(ITagQuery TagQuery)
         {
             this.TagQuery = TagQuery;
         }

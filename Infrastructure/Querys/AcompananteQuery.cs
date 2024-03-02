@@ -17,21 +17,28 @@ namespace Infrastructure.Querys
 
         public async Task<List<Acompanante>> GetAllAcompanante()
         {
-            List<Acompanante> ListaResponse = await AcompananteContext.Acompanante.ToListAsync();
+            List<Acompanante> ListaResponse = await AcompananteContext
+                                                        .Acompanante
+                                                        .ToListAsync();
             return ListaResponse;
         }
 
 
         public async Task<Acompanante?> GetAcompananteByUsuarioID(int UsuarioID)
         {
-            Acompanante? Acompanante = await AcompananteContext.Acompanante.FirstOrDefaultAsync(s => s.UsuarioID == UsuarioID);
+            Acompanante? Acompanante = await AcompananteContext
+                                                .Acompanante
+                                                .FirstOrDefaultAsync(s => s.UsuarioID == UsuarioID);
             return Acompanante;
         }
 
 
         public async Task<Acompanante?> GetAcompananteByID(int AcompananteID)
         {
-            Acompanante? Acompanante = await AcompananteContext.Acompanante.FindAsync(AcompananteID);
+            Acompanante? Acompanante = await AcompananteContext
+                                                .Acompanante
+                                                .Include(m => m.Tags)
+                                                .FirstOrDefaultAsync(s => s.AcompananteID == AcompananteID);
             return Acompanante;
         }
 

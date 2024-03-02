@@ -44,7 +44,7 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
 
 
 
-        [HttpGet("Acompanante/{AcompananteID}")] // -----------------------------------------LISTO
+        [HttpGet("{AcompananteID}")] // -----------------------------------------LISTO
         public async Task<IActionResult> GetAcompananteByID(int AcompananteID)
         {
             AcompananteResponse? AcompananteResponse = await AcompananteService.GetAcompananteByID(AcompananteID);
@@ -58,6 +58,25 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
             }
             return Ok(AcompananteResponse);
         }
+
+
+        [HttpGet("Tag/{AcompananteID}")]
+        public async Task<IActionResult> GetTagByAcompananteID(int AcompananteID)
+        {
+            try
+            {
+                List<TagResponse> ListaTagResponse = await AcompananteService.GetTagByAcompananteID(AcompananteID);
+                return Ok(ListaTagResponse);
+            }
+            catch (Exception Exc)
+            {
+                return BadRequest(Exc.Message);
+            }
+
+        }
+
+
+
 
 
 
@@ -78,7 +97,7 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
 
 
 
-        [HttpPost("{AcompananteID}")]
+        [HttpPost("Tag/{AcompananteID}")]
         public async Task<IActionResult> AddTagsAcompanante(int AcompananteID, List<TagDTO> ListTag)
         {
             List<TagResponse> ListTagResponse = await AcompananteService.AddCaracteristicas(AcompananteID, ListTag);

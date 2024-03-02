@@ -37,7 +37,6 @@ namespace Infrastructure.Querys
                                                     )
                                                     .ToListAsync();
             return ListaHorarios;
-
         }
     }
 }

@@ -20,8 +20,6 @@ namespace Application.Mappers
 
     public partial class HorariosMapper
     {
-        public partial Horarios DtoToHorarios(HorariosDTO HorariosDTO);
-        public partial Horarios DtoFiltroToHorarios(HorariosDtoFiltro HorariosDtoFiltro);
         public partial List<HorariosIdResponse> ListaHorariosToHorariosId(List<Horarios> ListaHorarios);
         public partial HorariosResponse HorariosToResponse(Horarios Horarios);
     }

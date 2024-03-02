@@ -2,11 +2,6 @@
 using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Querys
 {
@@ -19,10 +14,16 @@ namespace Infrastructure.Querys
             this.AcompananteContext = AcompananteContext;
         }
 
-        public async Task<List<Tag>> GetAllTag() 
+        public async Task<List<Tag>> GetAllTag()
         {
             List<Tag> ListTags = await AcompananteContext.Tag.ToListAsync();
             return ListTags;
+        }
+
+        public async Task<Tag?> GetTagById(int TagID)
+        {
+            Tag? Tag = await AcompananteContext.Tag.FindAsync(TagID);
+            return Tag;
         }
     }
 }

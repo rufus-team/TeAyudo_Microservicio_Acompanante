@@ -61,26 +61,26 @@ namespace Infrastructure.Migrations
                     b.Property<int>("AcompananteID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Domingo")
-                        .HasColumnType("int");
+                    b.Property<short>("Domingo")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Jueves")
-                        .HasColumnType("int");
+                    b.Property<short>("Jueves")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Lunes")
-                        .HasColumnType("int");
+                    b.Property<short>("Lunes")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Martes")
-                        .HasColumnType("int");
+                    b.Property<short>("Martes")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Miercoles")
-                        .HasColumnType("int");
+                    b.Property<short>("Miercoles")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Sabado")
-                        .HasColumnType("int");
+                    b.Property<short>("Sabado")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("Viernes")
-                        .HasColumnType("int");
+                    b.Property<short>("Viernes")
+                        .HasColumnType("smallint");
 
                     b.HasKey("AcompananteID");
 

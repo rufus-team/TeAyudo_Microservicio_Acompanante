@@ -22,7 +22,7 @@ namespace Infrastructure.Commands
             }
             await AcompananteContext.SaveChangesAsync();
             return Acompanante.Tags;
-            
+
         }
 
         public async Task<Acompanante> CreatedAcompanante(Acompanante Acompanante)

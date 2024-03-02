@@ -7,7 +7,7 @@
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class v1 : Migration
+    public partial class DBTerminada : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,13 +44,13 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     AcompananteID = table.Column<int>(type: "int", nullable: false),
-                    Lunes = table.Column<int>(type: "int", nullable: false),
-                    Martes = table.Column<int>(type: "int", nullable: false),
-                    Miercoles = table.Column<int>(type: "int", nullable: false),
-                    Jueves = table.Column<int>(type: "int", nullable: false),
-                    Viernes = table.Column<int>(type: "int", nullable: false),
-                    Sabado = table.Column<int>(type: "int", nullable: false),
-                    Domingo = table.Column<int>(type: "int", nullable: false)
+                    Lunes = table.Column<short>(type: "smallint", nullable: false),
+                    Martes = table.Column<short>(type: "smallint", nullable: false),
+                    Miercoles = table.Column<short>(type: "smallint", nullable: false),
+                    Jueves = table.Column<short>(type: "smallint", nullable: false),
+                    Viernes = table.Column<short>(type: "smallint", nullable: false),
+                    Sabado = table.Column<short>(type: "smallint", nullable: false),
+                    Domingo = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {

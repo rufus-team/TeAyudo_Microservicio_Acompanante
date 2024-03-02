@@ -26,33 +26,31 @@ namespace Application.Services
             {
                 return null;
             }
-            HorariosMapper Mapper = new HorariosMapper();
-            HorariosResponse HorariosResponse = Mapper.HorariosToResponse(Horarios);
+            MapHorariosToHorariosResponse Mapper = new MapHorariosToHorariosResponse();
+            HorariosResponse HorariosResponse = Mapper.HorarioToHorariosResponse(Horarios);
             return HorariosResponse;
         }
 
 
-
         public async Task<List<HorariosIdResponse>> GetHorariosIdByFiltro(HorariosDtoFiltro HorariosDtoFiltro)
         {
-            HorariosMapper Mapper = new HorariosMapper();
-            Horarios Horarios = Mapper.DtoFiltroToHorarios(HorariosDtoFiltro);
+            MapperHorariosFiltroToHorarios MapperFiltro = new MapperHorariosFiltroToHorarios();
+            Horarios Horarios = MapperFiltro.HorariosFiltroToHorarios(HorariosDtoFiltro);
             List<Horarios> ListaHorarios = await HorariosQuery.GetHorariosByFiltro(Horarios);
+            HorariosMapper Mapper = new HorariosMapper();
             List<HorariosIdResponse> ListaHorariosIdResponse = Mapper.ListaHorariosToHorariosId(ListaHorarios);
             return ListaHorariosIdResponse;
 
         }
 
 
-
-
-
         public async Task<HorariosResponse> AddHorarios(HorariosDTO HorariosDTO)
         {
-            HorariosMapper Mapper = new HorariosMapper();
-            Horarios Horarios = Mapper.DtoToHorarios(HorariosDTO);
+            MapperHorariosFiltroToHorarios MapperHorarios = new MapperHorariosFiltroToHorarios();
+            Horarios Horarios = MapperHorarios.HorariosDtoToHorarios(HorariosDTO);
             Horarios = await HorariosCommand.AddHorarios(Horarios);
-            HorariosResponse HorariosResponse = Mapper.HorariosToResponse(Horarios);
+            MapHorariosToHorariosResponse Mapper = new MapHorariosToHorariosResponse();
+            HorariosResponse HorariosResponse = Mapper.HorarioToHorariosResponse(Horarios);
             return HorariosResponse;
         }
 

@@ -3,13 +3,13 @@
     public class Horarios
     {
         public int AcompananteID { get; set; }
-        public int Lunes { get; set; }
-        public int Martes { get; set; }
-        public int Miercoles { get; set; }
-        public int Jueves { get; set; }
-        public int Viernes { get; set; }
-        public int Sabado { get; set; }
-        public int Domingo { get; set; }
+        public Int16 Lunes { get; set; }
+        public Int16 Martes { get; set; }
+        public Int16 Miercoles { get; set; }
+        public Int16 Jueves { get; set; }
+        public Int16 Viernes { get; set; }
+        public Int16 Sabado { get; set; }
+        public Int16 Domingo { get; set; }
         public Acompanante Acompanante { get; set; }
     }
 }
