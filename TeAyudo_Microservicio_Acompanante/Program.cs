@@ -37,7 +37,7 @@ builder.Services.AddTransient<ITagService, TagService>();
 
 builder.Services.AddTransient<ITagQuery, TagQuery>();
 
-
+builder.Services.AddTransient<IUsuarioQuery, UsuarioQuery>();
 
 builder.Services.AddCors(x => x.AddDefaultPolicy(c => c.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()));
 

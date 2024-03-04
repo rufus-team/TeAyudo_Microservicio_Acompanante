@@ -5,6 +5,7 @@ using Application.Mappers;
 using Application.Model.DTOs;
 using Application.Model.Responses;
 using Domain.Entities;
+using System.Data;
 
 namespace Application.Services
 {
@@ -13,12 +14,14 @@ namespace Application.Services
         private readonly IAcompananteCommand AcompananteCommand;
         private readonly IAcompananteQuery AcompananteQuery;
         private readonly ITagQuery TagQuery;
+        private readonly IUsuarioQuery UsuarioQuery;
 
-        public AcompananteService(IAcompananteCommand AcompananteCommand, IAcompananteQuery AcompananteQuery, ITagQuery TagQuery)
+        public AcompananteService(IAcompananteCommand AcompananteCommand, IAcompananteQuery AcompananteQuery, ITagQuery TagQuery, IUsuarioQuery UsuarioQuery)
         {
             this.AcompananteCommand = AcompananteCommand;
             this.AcompananteQuery = AcompananteQuery;
             this.TagQuery = TagQuery;
+            this.UsuarioQuery = UsuarioQuery;
         }
 
 
@@ -27,7 +30,17 @@ namespace Application.Services
             List<Acompanante> Lista = await AcompananteQuery.GetAllAcompanante();
             AcompananteMapper Mapper = new AcompananteMapper();
             List<AcompananteResponse> ListaResponse = Mapper.ListaAcompananteToListaResponse(Lista);
-            return ListaResponse;
+            List<AcompananteResponse> ListUserComplete = new List<AcompananteResponse>();
+            DatosUsuarioMapper datosUsuarioMapper = new DatosUsuarioMapper();
+            if (ListaResponse.Count > 0)
+            {
+                foreach (var AT in ListaResponse)
+                {
+                    UsuarioResponse? DatosAT = await UsuarioQuery.GetDateAt(AT.UsuarioID);
+                    ListUserComplete.Add(datosUsuarioMapper.SetDatosAt(DatosAT, AT));
+                }
+            }
+            return ListUserComplete;
         }
 
 
@@ -40,6 +53,9 @@ namespace Application.Services
             }
             AcompananteMapper Mapper = new AcompananteMapper();
             AcompananteResponse AcompananteResponse = Mapper.AcompananteToResponse(Acompanante);
+            UsuarioResponse? DatosAT = await UsuarioQuery.GetDateAt(UsuarioID);
+            DatosUsuarioMapper datosUsuarioMapper = new DatosUsuarioMapper();
+            AcompananteResponse = datosUsuarioMapper.SetDatosAt(DatosAT,AcompananteResponse);
             return AcompananteResponse;
         }
 
@@ -53,6 +69,9 @@ namespace Application.Services
             }
             AcompananteMapper Mapper = new AcompananteMapper();
             AcompananteResponse AcompananteResponse = Mapper.AcompananteToResponse(Acompanante);
+            UsuarioResponse? DatosAT = await UsuarioQuery.GetDateAt(AcompananteResponse.UsuarioID);
+            DatosUsuarioMapper datosUsuarioMapper = new DatosUsuarioMapper();
+            AcompananteResponse = datosUsuarioMapper.SetDatosAt(DatosAT, AcompananteResponse);
             return AcompananteResponse;
         }
 
@@ -77,6 +96,9 @@ namespace Application.Services
             Acompanante Acompanante = Mapper.DtoToAcompanante(AcompananteDTO);
             Acompanante = await AcompananteCommand.CreatedAcompanante(Acompanante);
             AcompananteResponse AcompananteResponse = Mapper.AcompananteToResponse(Acompanante);
+            UsuarioResponse? DatosAT = await UsuarioQuery.GetDateAt(AcompananteDTO.UsuarioID);
+            DatosUsuarioMapper datosUsuarioMapper = new DatosUsuarioMapper();
+            AcompananteResponse = datosUsuarioMapper.SetDatosAt(DatosAT, AcompananteResponse);
             return AcompananteResponse;
         }
 

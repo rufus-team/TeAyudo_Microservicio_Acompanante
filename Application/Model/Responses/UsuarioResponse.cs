@@ -1,10 +1,14 @@
-﻿namespace Application.Model.Responses
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.Model.Responses
 {
-    public class AcompananteResponse
+    public class UsuarioResponse
     {
-        public int AcompananteID { get; set; }
         public int UsuarioID { get; set; }
-        public string Descripcion { get; set; }
         public byte[] FotoPerfil { get; set; }
         public string UsuarioNombre { get; set; }
         public string Contraseña { get; set; }
@@ -13,5 +17,6 @@
         public string Nombres { get; set; }
         public string Apellido { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        //public int AcompananteID { get; set; }
     }
 }
