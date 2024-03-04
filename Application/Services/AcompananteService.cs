@@ -5,7 +5,6 @@ using Application.Mappers;
 using Application.Model.DTOs;
 using Application.Model.Responses;
 using Domain.Entities;
-using System.Data;
 
 namespace Application.Services
 {
@@ -55,7 +54,7 @@ namespace Application.Services
             AcompananteResponse AcompananteResponse = Mapper.AcompananteToResponse(Acompanante);
             UsuarioResponse? DatosAT = await UsuarioQuery.GetDateAt(UsuarioID);
             DatosUsuarioMapper datosUsuarioMapper = new DatosUsuarioMapper();
-            AcompananteResponse = datosUsuarioMapper.SetDatosAt(DatosAT,AcompananteResponse);
+            AcompananteResponse = datosUsuarioMapper.SetDatosAt(DatosAT, AcompananteResponse);
             return AcompananteResponse;
         }
 
