@@ -26,7 +26,7 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
 
 
 
-        [HttpGet("UserAcompanante/{UsuarioID}")] // --------------------------------------------LISTO
+        [HttpGet("UserAcompanante/{UsuarioID}")] //Comenzaremos con la comunicacion
         public async Task<IActionResult> GetAcompananteByUsuarioID(int UsuarioID)
         {
             AcompananteResponse? AcompananteResponse = await AcompananteService.GetAcompananteByUsuarioID(UsuarioID);
