@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces.Service;
 using Application.Model.DTOs;
 using Application.Model.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TeAyudo_Microservicio_Acompanante.Controllers
@@ -17,7 +18,7 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
         }
 
 
-        [HttpGet] // ---------------------------------------  LISTOOOOOOOOOO
+        [HttpGet]
         public async Task<IActionResult> GetAllAcompanante()
         {
             List<AcompananteResponse> ListaResponse = await AcompananteService.GetAllAcompanante();
@@ -26,7 +27,7 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
 
 
 
-        [HttpGet("UserAcompanante/{UsuarioID}")] // --------------------------------------------LISTO
+        [HttpGet("UserAcompanante/{UsuarioID}")] 
         public async Task<IActionResult> GetAcompananteByUsuarioID(int UsuarioID)
         {
             AcompananteResponse? AcompananteResponse = await AcompananteService.GetAcompananteByUsuarioID(UsuarioID);
@@ -43,8 +44,8 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
 
 
 
-
-        [HttpGet("{AcompananteID}")] // -----------------------------------------LISTO
+        [Authorize]
+        [HttpGet("{AcompananteID}")] 
         public async Task<IActionResult> GetAcompananteByID(int AcompananteID)
         {
             AcompananteResponse? AcompananteResponse = await AcompananteService.GetAcompananteByID(AcompananteID);
@@ -81,7 +82,7 @@ namespace TeAyudo_Microservicio_Acompanante.Controllers
 
 
 
-        [HttpPost] // -----------------------------------------LISTO
+        [HttpPost] 
         public async Task<IActionResult> CreateAcompanante(AcompananteDTO AcompananteDTO)
         {
             try

@@ -5,7 +5,10 @@ using Application.Services;
 using Infrastructure.Commands;
 using Infrastructure.Persistence;
 using Infrastructure.Querys;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +40,26 @@ builder.Services.AddTransient<ITagService, TagService>();
 
 builder.Services.AddTransient<ITagQuery, TagQuery>();
 
+string ClaveSecreta = builder.Configuration.GetValue<string>("JwtSettings:Key");
+Byte[] KeyBytes = Encoding.ASCII.GetBytes(ClaveSecreta);
+
+builder.Services.AddAuthentication(s => {
+    s.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    s.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(s =>
+{
+    s.RequireHttpsMetadata = false;
+    s.SaveToken = true;
+    s.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(KeyBytes),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+    };
+});
 
 
 builder.Services.AddCors(x => x.AddDefaultPolicy(c => c.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()));
@@ -49,6 +72,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthentication();
 
 app.UseHttpsRedirection();
 
